@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import avatar from '../assets/img/avatar.svg'
 import { emit, notify } from '../events'
+import { useTheme, type ThemePref } from '../theme'
 import { usePopover } from '../usePopover'
-import { shortcutLabel } from '../shortcut'
 
 // Placeholder identity until real auth is wired up.
 const user = { name: 'Lando Norris', email: 'lando@loopline.studio', role: 'Design Lead' }
@@ -13,6 +13,7 @@ export function ProfileMenu() {
   const trigger = useRef<HTMLButtonElement>(null)
   const uid = useId()
   const close = useCallback(() => setOpen(false), [])
+  const [theme, setTheme] = useTheme()
   usePopover(open, close, wrap, trigger)
 
   // Move focus into the menu when it opens
@@ -58,11 +59,25 @@ export function ProfileMenu() {
             </span>
           </div>
           <div className="row-menu__sep" />
+          <div className="profile__theme">
+            <span className="profile__theme-label" id={`${uid}-theme`}>
+              Theme
+            </span>
+            <div className="segmented" role="radiogroup" aria-labelledby={`${uid}-theme`}>
+              {(['light', 'dark', 'system'] as ThemePref[]).map((t) => (
+                <label key={t} className="segmented__opt">
+                  <input type="radio" name={`${uid}-theme-opt`} checked={theme === t} onChange={() => setTheme(t)} />
+                  <span>{t[0].toUpperCase() + t.slice(1)}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+          <div className="row-menu__sep" />
           <a className="row-menu__item" role="menuitem" href="#settings" onClick={close}>
             Account settings
           </a>
           <button className="row-menu__item" role="menuitem" onClick={run(() => emit('palette:open'))}>
-            Search <kbd>{shortcutLabel}</kbd>
+            Search
           </button>
           <button className="row-menu__item" role="menuitem" onClick={run(() => notify('Help center is coming soon'))}>
             Help &amp; docs

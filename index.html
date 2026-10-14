@@ -6,6 +6,16 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Loopline</title>
+    <script>
+      // Apply the saved theme before first paint (see src/theme.ts)
+      try {
+        var t = localStorage.getItem('loopline-theme') || 'dark'
+        if (t === 'system') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+        document.documentElement.dataset.theme = t
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark'
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

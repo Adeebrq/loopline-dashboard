@@ -238,11 +238,11 @@ export function UsageChart() {
           </linearGradient>
         </defs>
         {GRID_Y.map((y) => (
-          <path key={y} d={`M274 ${y}H724`} stroke="#313131" strokeOpacity="0.9" strokeDasharray="4 4" vectorEffect="non-scaling-stroke" />
+          <path key={y} className="usage__grid" d={`M274 ${y}H724`} strokeDasharray="4 4" vectorEffect="non-scaling-stroke" />
         ))}
         <g className="usage__series">
           <path d={`${line}V${BOTTOM}H${PLOT.x}Z`} fill="url(#usage-fill)" />
-          <path d={line} stroke="#FEFEFE" fill="none" vectorEffect="non-scaling-stroke" />
+          <path className="usage__line" d={line} fill="none" vectorEffect="non-scaling-stroke" />
         </g>
       </svg>
 
