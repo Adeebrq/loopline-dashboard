@@ -37,7 +37,6 @@ export function Sidebar({
       >
         <SearchIcon className="search__icon" />
         <span className="search__placeholder">Search</span>
-        <kbd className="search__kbd">{shortcutLabel}</kbd>
       </button>
 
       <nav className="nav">
